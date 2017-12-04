@@ -1,16 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_zero.c                                        :+:      :+:    :+:   */
+/*   move_tetrimino.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybohusev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/24 16:35:33 by ybohusev          #+#    #+#             */
-/*   Updated: 2017/11/24 16:35:33 by ybohusev         ###   ########.fr       */
+/*   Created: 2017/11/24 19:26:26 by ybohusev          #+#    #+#             */
+/*   Updated: 2017/11/24 19:26:29 by ybohusev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		search_min(int p[4][2], int c)
+extern	void	move_tetrimino_right(int coord[4][2])
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		coord[i][1]++;
+		i++;
+	}
+}
+
+extern	void	move_tetrimino_down(int coord[4][2])
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		coord[i][0]++;
+		i++;
+	}
+}
+
+static	int		search_min(int p[4][2], int c)
 {
 	int	i;
 	int	min;
@@ -31,7 +55,7 @@ int		search_min(int p[4][2], int c)
 	return (min_coord);
 }
 
-void	move_zero(int coord[4][2])
+extern	void	move_zero(int coord[4][2])
 {
 	int	min;
 	int	i;
@@ -56,12 +80,4 @@ void	move_zero(int coord[4][2])
 			i++;
 		}
 	}
-}
-
-int main() 
-{
-  int coord[4][2] = {{1, 3}, {2, 2}, {2, 3}, {3, 3}};
-  move_zero(coord);
-  
-  return 0;
 }
