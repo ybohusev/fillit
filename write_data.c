@@ -12,7 +12,16 @@
 
 #include "fillit.h"
 
-t_tetrimino		write_data(int fd)
+t_tetrimino		*write_data(int fd)
 {
-	
+	t_tetrimino *list;
+	char		**elem;
+
+	elem = check_valid(fd);
+	while (elem != NULL)
+	{
+		
+		elem = check_valid(fd);
+	}
+	return(list)
 }

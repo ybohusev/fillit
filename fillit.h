@@ -21,13 +21,14 @@ typedef	struct			s_tetrimino
 {
 	int					coord[4][2];
 	struct s_tetrimino	*next;
+	struct s_tetrimino	*prev;
 }						t_tetrimino;
 
 void					move_zero(int coord[4][2]);
 void					move_tetrimino_right(int coord[4][2]);
 void					move_tetrimino_down(int coord[4][2]);
 t_tetrimino				*read_data(char *file_name);
-int						check_valid(int fd);
-t_tetrimino				write_data(fd);
+int						check_valid(int	fd);
+t_tetrimino				write_data(int	fd);
 
 #endif

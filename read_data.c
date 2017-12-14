@@ -22,12 +22,7 @@ t_tetrimino		*read_data(char *file_name)
 		write(1, "Cannot open file\n", 17);
 		exit(0);
 	}
-	if (!(check_valid(fd)))
-	{
-		write(1, "error\n", 6);
-		close(fd);
-		exit(0);
-	}
 	tetr = write_data(fd);
 	close(fd);
+	return (tetr);
 }

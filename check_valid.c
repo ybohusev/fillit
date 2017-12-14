@@ -12,7 +12,8 @@
 
 #include "fillit.h"
 
-int		check_valid(int fd)
+char		**check_valid(int fd)
 {
-	
+	char	**tetr;
+	return (tetr);
 }	
