@@ -1,26 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybohusev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/04 14:45:22 by ybohusev          #+#    #+#             */
-/*   Updated: 2017/12/04 14:45:25 by ybohusev         ###   ########.fr       */
+/*   Created: 2017/11/19 17:44:28 by ybohusev          #+#    #+#             */
+/*   Updated: 2017/11/19 17:44:29 by ybohusev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		main(int argc, char *argv[])
+t_tetrimino		*ft_lstnew(int new_tetr[4][2])
 {
-	t_tetrimino		*tetr;
+	t_tetrimino	*new;
+	int			i;
+	int			j;
 
-	if (argc != 2)
+	new = malloc(sizeof(t_tetrimino));
+	i = 0;
+	if (new == NULL)
+		return (NULL);
+	if (new_tetr == NULL)
+		new->coord = NULL;
+	else
 	{
-		write(1, "usage: ./fillit source_file\n", 26);
-		exit(0);
+		while (i < 4)
+		{
+			j = 0;
+			while (j < 2)
+			{
+				new->coord[i][j] = new_tetr[i][j];
+				j++;
+			}
+			i++;
+		}
 	}
-	tetr = read_data(argv[1]);
-	return (0);
+	new->next = NULL;
+	return (new);
 }
