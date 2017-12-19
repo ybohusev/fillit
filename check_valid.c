@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdio.h>
+#include "fillit.h"
 
 static int		touch_check(char **s, int x, int y)
 {
@@ -26,6 +27,7 @@ static int		touch_check(char **s, int x, int y)
 
 static int		sqr_valid(char **sqr)
 {
+
 	int	x;
 	int	y;
 	int	t_check;
@@ -36,14 +38,14 @@ static int		sqr_valid(char **sqr)
 	count_dot = 0;
 	count_hash = 0;
 	y = -1;
-	while (y++ != 4)
+	while (y++ != 3)
 	{
 		x = -1;
-		while (x++ !=  4)
+		while (x++ !=  3)
 		{
 			if (sqr[x][y] == '.')
 				count_dot++;
-			if (sqr[x][y] == '#' && (t_check += touch_check(sqr, x, y)))
+			else if (sqr[x][y] == '#' && (t_check += touch_check(sqr, x, y)))
 				count_hash++;
 		}
 	}
@@ -55,20 +57,21 @@ static int		sqr_valid(char **sqr)
 extern char		**check_valid(int fd)
 {
 	char	buf[21];
+	// char	**err_message;
 	char	**sqr_t;
 	int		count_t;
-
 	count_t = 0;
 	sqr_t = NULL;
+	// err_message = (char**)fillit_memalloc(4, 5);
 	while (read(fd, buf, 21))
-		{
-			if (count_t == 26 || buf[19] != '\n' || buf [0] == '\n')
-				return ("Err");
-			sqr_t = ft_strsplit(buf, '\n');
-			if (sqr_valid(sqr_t))
-				count_t++;
-			else
-				return ("Err");
-		}
+	{
+		if (count_t == 26 || buf[19] != '\n' || buf [0] == '\n')
+			return (0);
+		sqr_t = ft_strsplit(buf, '\n');
+		if (sqr_valid(sqr_t))
+			count_t++;
+		else
+			return (0);
+	}
 	return (sqr_t);
 }	

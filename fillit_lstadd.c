@@ -1,42 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   fillit_lstadd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybohusev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/19 17:44:28 by ybohusev          #+#    #+#             */
-/*   Updated: 2017/11/19 17:44:29 by ybohusev         ###   ########.fr       */
+/*   Created: 2017/11/21 15:08:31 by ybohusev          #+#    #+#             */
+/*   Updated: 2017/11/21 15:08:33 by ybohusev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_tetrimino		*fillit_lstnew(int new_tetr[4][2])
+void	fillit_lstadd(t_tetrimino *list_elem, int **new_tetr)
 {
-	t_tetrimino	*new;
+	printf("fillit_lstadd\n");
+	
+	t_tetrimino *current;
 	int			i;
 	int			j;
 
-	new = malloc(sizeof(t_tetrimino));
 	i = 0;
-	if (new == NULL)
-		return (NULL);
-	if (new_tetr == NULL)
-		new->coord = NULL;
-	else
+	current = list_elem;
+	while (current->next != NULL)
+		current = current->next;
+	current->next = malloc(sizeof(t_tetrimino));
+	if (current->next == NULL)
+		current->next = NULL;
+	while (i < 4)
 	{
-		while (i < 4)
+		j = 0;
+		while (j < 2)
 		{
-			j = 0;
-			while (j < 2)
-			{
-				new->coord[i][j] = new_tetr[i][j];
-				j++;
-			}
-			i++;
+			current->next->coord[i][j] = new_tetr[i][j];
+			j++;
 		}
+		i++;
 	}
-	new->next = NULL;
-	return (new);
+	current->next->next = NULL;
 }

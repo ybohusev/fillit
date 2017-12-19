@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_data.c                                        :+:      :+:    :+:   */
+/*   fillit_memalloc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybohusev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/04 15:34:23 by ybohusev          #+#    #+#             */
-/*   Updated: 2017/12/04 15:34:25 by ybohusev         ###   ########.fr       */
+/*   Created: 2017/12/19 18:16:43 by ybohusev          #+#    #+#             */
+/*   Updated: 2017/12/19 18:16:54 by ybohusev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_tetrimino		*read_data(char *file_name)
+void	**fillit_memalloc(size_t size_x, size_t size_y)
 {
-	printf("read_data\n");
-	
-	int			fd;
-	t_tetrimino	*tetr;
+	printf("fillit_memalloc\n");
 
-	if (!(fd = open(file_name, O_RDONLY)))
+	void	**freshmem;
+	size_t	i;
+
+	i = 0;
+	if ((freshmem = (void*)malloc(size_x)))
 	{
-		write(1, "Cannot open file\n", 17);
-		exit(0);
+		while (i < size_x)
+		{
+			if ((freshmem[i] = (void**)malloc(size_y)))
+				ft_bzero(freshmem, size_y);
+			i++;
+		}
+		return (freshmem);
 	}
-	tetr = write_data(fd);
-	close(fd);
-	return (tetr);
+	return (NULL);
 }

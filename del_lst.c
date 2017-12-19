@@ -1,39 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd.c                                        :+:      :+:    :+:   */
+/*   del_lst.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybohusev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/21 15:08:31 by ybohusev          #+#    #+#             */
-/*   Updated: 2017/11/21 15:08:33 by ybohusev         ###   ########.fr       */
+/*   Created: 2017/12/19 15:51:56 by ybohusev          #+#    #+#             */
+/*   Updated: 2017/12/19 15:51:58 by ybohusev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	fillit_lstadd(t_tetrimino *list_elem, int new_tetr[4][2])
+void	del_lst(t_tetrimino *tetrim)
 {
-	t_tetrimino *current;
-	int			i;
-	int			j;
+	int	i;
 
 	i = 0;
-	current = list_elem;
-	while (current->next != NULL)
-		current = current->next;
-	current->next = malloc(sizeof(t_tetrimino));
-	if (current->next == NULL)
-		current->next = NULL;
-	while (i < 4)
+	if (tetrim)
 	{
-		j = 0;
-		while (j < 2)
+		if (tetrim->next == NULL)
 		{
-			new->next->coord[i][j] = new_tetr[i][j];
-			j++;
+			while (i < 4)
+			{
+				free(tetrim->coord[i]);
+				i++;
+			}
+			tetrim = NULL;
 		}
-		i++;
+		else
+		{
+			del_lst(tetrim->next);
+		}
 	}
-	current->next->next = NULL;
+	return ;
 }

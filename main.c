@@ -22,5 +22,7 @@ int		main(int argc, char *argv[])
 		exit(0);
 	}
 	tetr = read_data(argv[1]);
+
+	printf("all result: %d\n", tetr->coord[1][1]);
 	return (0);
 }

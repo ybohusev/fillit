@@ -12,15 +12,18 @@
 
 #include "fillit.h"
 
-static	int				**write_to_arr(char elem[4][5])
+static	int				**write_to_arr(char **elem)
 {
-	int		coord[4][2];
+	printf("write_to_arr\n");
+
+	int		**coord;
 	int		i;
 	int		j;
 	int		c;
 
 	i = 0;
 	c = 0;
+	coord = (int**)fillit_memalloc(4, 2);
 	while (i < 4)
 	{
 		j = 0;
@@ -44,15 +47,22 @@ static	int				**write_to_arr(char elem[4][5])
 extern	t_tetrimino		*write_data(int fd)
 {
 	t_tetrimino *tetr;
-	char		elem[4][5];
+	char		**elem;
 
-	elem = check_valid(fd);
-	tetr = ft_lstnew(write_to_arr(elem));
-	while (elem != NULL)
+	tetr = NULL;
+	elem = (char**)fillit_memalloc(4, 5);
+	while ((elem = check_valid(fd)))
 	{
-		elem = check_valid(fd);
-		if (elem != NULL)
-			ft_lstadd(tetr, write_to_arr(elem));
+		// if (elem[0][0] == '\0')
+		// {
+		// 	write(1, "error\n", 7);
+		// 	del_lst(tetr);
+		// 	exit(0);	
+		// }
+		if (!tetr && elem)
+			tetr = fillit_lstnew(write_to_arr(elem));
+		else if (elem)
+			fillit_lstadd(tetr, write_to_arr(elem));
 	}
 	return (tetr);
 }

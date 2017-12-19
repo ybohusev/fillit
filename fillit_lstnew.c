@@ -1,30 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_data.c                                        :+:      :+:    :+:   */
+/*   fillit_lstnew.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybohusev <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/04 15:34:23 by ybohusev          #+#    #+#             */
-/*   Updated: 2017/12/04 15:34:25 by ybohusev         ###   ########.fr       */
+/*   Created: 2017/11/19 17:44:28 by ybohusev          #+#    #+#             */
+/*   Updated: 2017/11/19 17:44:29 by ybohusev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_tetrimino		*read_data(char *file_name)
+t_tetrimino		*fillit_lstnew(int **new_tetr)
 {
-	printf("read_data\n");
+	printf("fillit_lstnew\n");
 	
-	int			fd;
-	t_tetrimino	*tetr;
+	t_tetrimino	*new;
+	int			i;
+	int			j;
 
-	if (!(fd = open(file_name, O_RDONLY)))
+	new = malloc(sizeof(t_tetrimino));
+	i = 0;
+	if (new == NULL)
+		return (NULL);
+	if (new_tetr == NULL)
+		return (NULL);
+	else
 	{
-		write(1, "Cannot open file\n", 17);
-		exit(0);
+		while (i < 4)
+		{
+			j = 0;
+			while (j < 2)
+			{
+				new->coord[i][j] = new_tetr[i][j];
+				j++;
+			}
+			i++;
+		}
 	}
-	tetr = write_data(fd);
-	close(fd);
-	return (tetr);
+	new->next = NULL;
+	return (new);
 }
