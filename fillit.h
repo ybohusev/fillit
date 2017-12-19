@@ -29,7 +29,7 @@ void					move_tetrimino_down(int coord[4][2]);
 t_tetrimino				*read_data(char *file_name);
 char					**check_valid(int fd);
 t_tetrimino				write_data(int fd);
-t_tetrimino				*ft_lstnew(int new_tetr[4][2]);
-void					ft_lstadd(t_tetrimino *list_elem, int new_tetr[4][2]);
+t_tetrimino				*fillit_lstnew(int new_tetr[4][2]);
+void					fillitt_lstadd(t_tetrimino *list_elem, int new_tetr[4][2]);
 
 #endif

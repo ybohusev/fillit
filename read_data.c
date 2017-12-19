@@ -17,7 +17,7 @@ t_tetrimino		*read_data(char *file_name)
 	int			fd;
 	t_tetrimino	*tetr;
 
-	if (fd = open(file_name, O_RDONLY) < 0)
+	if (!(fd = open(file_name, O_RDONLY)))
 	{
 		write(1, "Cannot open file\n", 17);
 		exit(0);

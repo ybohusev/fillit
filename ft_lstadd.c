@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-void	ft_lstadd(t_tetrimino *list_elem, int new_tetr[4][2])
+void	fillit_lstadd(t_tetrimino *list_elem, int new_tetr[4][2])
 {
 	t_tetrimino *current;
 	int			i;

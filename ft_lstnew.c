@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-t_tetrimino		*ft_lstnew(int new_tetr[4][2])
+t_tetrimino		*fillit_lstnew(int new_tetr[4][2])
 {
 	t_tetrimino	*new;
 	int			i;
