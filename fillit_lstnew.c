@@ -14,8 +14,6 @@
 
 t_tetrimino		*fillit_lstnew(int **new_tetr)
 {
-	printf("fillit_lstnew\n");
-	
 	t_tetrimino	*new;
 	int			i;
 	int			j;

@@ -14,8 +14,6 @@
 
 void	**fillit_memalloc(size_t size_x, size_t size_y)
 {
-	printf("fillit_memalloc\n");
-
 	void	**freshmem;
 	size_t	i;
 

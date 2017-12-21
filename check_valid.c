@@ -18,16 +18,28 @@ static int		touch_check(char **s, int x, int y)
 	int		check;
 
 	check = 0;
-	if (s[x + 1][y] == '#')
-		check++;
-	if (s[x][y + 1] == '#')
-		check++;
+	if (x != 3 && y != 3)
+	{
+		if (s[x + 1][y] == '#')
+			check++;
+		if (s[x][y + 1] == '#')
+			check++;
+	}
+	else if (x == 3 && y != 3)
+	{
+		if (s[x][y + 1] == '#')
+			check++;
+	}
+	else if (y == 3 && x != 3)
+	{
+		if (s[x + 1][y] == '#')
+			check++;
+	}
 	return (check);
 }
 
 static int		sqr_valid(char **sqr)
 {
-
 	int	x;
 	int	y;
 	int	t_check;
@@ -54,24 +66,21 @@ static int		sqr_valid(char **sqr)
 	return (1);
 }
 
-extern char		**check_valid(int fd)
+extern char		**check_valid(int fd, int *a)
 {
 	char	buf[21];
-	// char	**err_message;
 	char	**sqr_t;
-	int		count_t;
-	count_t = 0;
+
 	sqr_t = NULL;
-	// err_message = (char**)fillit_memalloc(4, 5);
-	while (read(fd, buf, 21))
+	if (read(fd, buf, 21))
 	{
-		if (count_t == 26 || buf[19] != '\n' || buf [0] == '\n')
-			return (0);
+		if (buf[19] != '\n' || buf [0] == '\n')
+			*a = 0;
 		sqr_t = ft_strsplit(buf, '\n');
 		if (sqr_valid(sqr_t))
-			count_t++;
+			return (sqr_t);
 		else
-			return (0);
+			*a = 0;
 	}
-	return (sqr_t);
+	return (0);
 }	

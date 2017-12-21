@@ -14,8 +14,6 @@
 
 void	fillit_lstadd(t_tetrimino *list_elem, int **new_tetr)
 {
-	printf("fillit_lstadd\n");
-	
 	t_tetrimino *current;
 	int			i;
 	int			j;

@@ -12,10 +12,18 @@
 
 #include "fillit.h"
 
+static	void			delete_alloc(void	**data)
+{
+	int	j;
+
+	j = -1;
+	while (data[++j])
+		free(data[j]);
+	free(data);
+}
+
 static	int				**write_to_arr(char **elem)
 {
-	printf("write_to_arr\n");
-
 	int		**coord;
 	int		i;
 	int		j;
@@ -34,8 +42,6 @@ static	int				**write_to_arr(char **elem)
 				coord[c][0] = i;
 				coord[c][1] = j;
 				c++;
-				if (c == 4)
-					return (coord);
 			}
 			j++;
 		}
@@ -46,23 +52,28 @@ static	int				**write_to_arr(char **elem)
 
 extern	t_tetrimino		*write_data(int fd)
 {
+	int			*error;
+	int			i;
 	t_tetrimino *tetr;
 	char		**elem;
+	int			**data;
 
 	tetr = NULL;
+	i = 1;
+	error = &i;
 	elem = (char**)fillit_memalloc(4, 5);
-	while ((elem = check_valid(fd)))
+	while ((elem = check_valid(fd, error)) && *error)
 	{
-		// if (elem[0][0] == '\0')
-		// {
-		// 	write(1, "error\n", 7);
-		// 	del_lst(tetr);
-		// 	exit(0);	
-		// }
-		if (!tetr && elem)
-			tetr = fillit_lstnew(write_to_arr(elem));
-		else if (elem)
-			fillit_lstadd(tetr, write_to_arr(elem));
+		data = write_to_arr(elem);
+		if (!tetr)
+			tetr = fillit_lstnew(data);
+		else
+			fillit_lstadd(tetr, data);
+		delete_alloc((void**)elem);
+		delete_alloc((void**)data);
+		i++;
 	}
+	if ((!(*error) || i > 26) && (write(1, "error\n", 7)))
+		exit(0);
 	return (tetr);
 }

@@ -23,6 +23,7 @@ int		main(int argc, char *argv[])
 	}
 	tetr = read_data(argv[1]);
 
-	printf("all result: %d\n", tetr->coord[1][1]);
+	printf("all result: %d\n", tetr->coord[3][1]);
+	system("leaks test");
 	return (0);
 }

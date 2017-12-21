@@ -14,8 +14,6 @@
 
 t_tetrimino		*read_data(char *file_name)
 {
-	printf("read_data\n");
-	
 	int			fd;
 	t_tetrimino	*tetr;
 
