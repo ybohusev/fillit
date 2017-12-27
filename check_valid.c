@@ -70,7 +70,6 @@ extern char		**check_valid(int fd, int *a)
 {
 	char	buf[21];
 	char	**sqr_t;
-
 	sqr_t = NULL;
 	if (read(fd, buf, 21))
 	{

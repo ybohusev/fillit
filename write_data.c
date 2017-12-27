@@ -16,22 +16,25 @@ static	void			delete_alloc(void	**data)
 {
 	int	j;
 
-	j = -1;
-	while (data[++j])
+	j = 0;
+	while (j < 4)
+	{
 		free(data[j]);
+		data[j] = NULL;
+		j++;
+	}
 	free(data);
+	data = NULL;
 }
 
-static	int				**write_to_arr(char **elem)
+static	void			write_to_arr(char **elem, int **coord)
 {
-	int		**coord;
 	int		i;
 	int		j;
 	int		c;
 
 	i = 0;
 	c = 0;
-	coord = (int**)fillit_memalloc(4, 2);
 	while (i < 4)
 	{
 		j = 0;
@@ -47,7 +50,6 @@ static	int				**write_to_arr(char **elem)
 		}
 		i++;
 	}
-	return (coord);
 }
 
 extern	t_tetrimino		*write_data(int fd)
@@ -62,17 +64,18 @@ extern	t_tetrimino		*write_data(int fd)
 	i = 1;
 	error = &i;
 	elem = (char**)fillit_memalloc(4, 5);
+	data = (int**)fillit_memalloc(4, 2);
 	while ((elem = check_valid(fd, error)) && *error)
 	{
-		data = write_to_arr(elem);
+		write_to_arr(elem, data);
 		if (!tetr)
 			tetr = fillit_lstnew(data);
 		else
 			fillit_lstadd(tetr, data);
 		delete_alloc((void**)elem);
-		delete_alloc((void**)data);
 		i++;
 	}
+	delete_alloc((void**)data);
 	if ((!(*error) || i > 26) && (write(1, "error\n", 7)))
 		exit(0);
 	return (tetr);
