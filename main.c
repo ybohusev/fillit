@@ -22,6 +22,7 @@ int		main(int argc, char *argv[])
 		exit(0);
 	}
 	tetr = read_data(argv[1]);
+	search_s(tetr);
 	printf("all result: %d\n", tetr->coord[1][0]);
 	printf("all result: %d\n", tetr->coord[1][1]);
 	printf("all result: %d\n", tetr->next->coord[0][0]);
