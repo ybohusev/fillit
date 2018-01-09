@@ -12,18 +12,18 @@
 
 #include "fillit.h"
 
-void	**fillit_memalloc(size_t size_x, size_t size_y)
+int		**fillit_memalloc(int size_x, int size_y)
 {
-	void	**freshmem;
-	size_t	i;
+	int		**freshmem;
+	int		i;
 
 	i = 0;
-	if ((freshmem = (void*)malloc(size_x)))
+	if ((freshmem = (int**)malloc(sizeof(int*) * size_x)))
 	{
 		while (i < size_x)
 		{
-			if ((freshmem[i] = (void**)malloc(size_y)))
-				ft_bzero(freshmem, size_y);
+			if ((freshmem[i] = (int*)malloc(sizeof(int) * size_y)))
+				ft_bzero(freshmem[i], size_y * sizeof(int));
 			i++;
 		}
 		return (freshmem);

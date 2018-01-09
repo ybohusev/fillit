@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "fillit.h"
 
 static int		touch_check(char **s, int x, int y)
@@ -53,7 +52,7 @@ static int		sqr_valid(char **sqr)
 	while (y++ != 3)
 	{
 		x = -1;
-		while (x++ !=  3)
+		while (x++ != 3)
 		{
 			if (sqr[x][y] == '.')
 				count_dot++;
@@ -70,16 +69,22 @@ extern char		**check_valid(int fd, int *a)
 {
 	char	buf[21];
 	char	**sqr_t;
+	int		i;
+
 	sqr_t = NULL;
-	if (read(fd, buf, 21))
+	if ((i = read(fd, buf, 21)))
 	{
-		if (buf[19] != '\n' || buf [0] == '\n')
+		if (buf[19] != '\n' || buf[0] == '\n' || i < 20)
+		{
 			*a = 0;
-		sqr_t = ft_strsplit(buf, '\n');
-		if (sqr_valid(sqr_t))
 			return (sqr_t);
-		else
-			*a = 0;
+		}
+		sqr_t = ft_strsplit(buf, '\n');
+		if (sqr_t[0] != NULL)
+		{
+			if (sqr_valid(sqr_t))
+				return (sqr_t);
+		}
 	}
-	return (0);
-}	
+	return (sqr_t);
+}

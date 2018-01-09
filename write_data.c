@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-static	void			delete_alloc(void	**data)
+static	void			delete_alloc(void **data)
 {
 	int	j;
 
@@ -38,7 +38,7 @@ static	void			write_to_arr(char **elem, int **coord)
 	while (i < 4)
 	{
 		j = 0;
-		while (j < 5)
+		while (j < 4)
 		{
 			if (elem[i][j] == '#')
 			{
@@ -54,7 +54,6 @@ static	void			write_to_arr(char **elem, int **coord)
 
 extern	t_tetrimino		*write_data(int fd)
 {
-	int			*error;
 	int			i;
 	t_tetrimino *tetr;
 	char		**elem;
@@ -62,10 +61,8 @@ extern	t_tetrimino		*write_data(int fd)
 
 	tetr = NULL;
 	i = 1;
-	error = &i;
-	elem = (char**)fillit_memalloc(4, 5);
-	data = (int**)fillit_memalloc(4, 2);
-	while ((elem = check_valid(fd, error)) && *error)
+	data = fillit_memalloc(4, 2);
+	while ((elem = check_valid(fd, &i)) && i)
 	{
 		write_to_arr(elem, data);
 		if (!tetr)
@@ -76,7 +73,7 @@ extern	t_tetrimino		*write_data(int fd)
 		i++;
 	}
 	delete_alloc((void**)data);
-	if ((!(*error) || i > 26) && (write(1, "error\n", 7)))
+	if ((!(i) || i > 26) && (write(1, "error\n", 7)))
 		exit(0);
 	return (tetr);
 }
