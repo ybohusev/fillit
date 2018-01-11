@@ -18,17 +18,28 @@ int		main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		write(1, "usage: ./fillit source_file\n", 26);
+		write(1, "usage: ./fillit source_file\n", 28);
 		exit(0);
 	}
 	tetr = read_data(argv[1]);
-	search_s(tetr);
-	printf("all result: %d\n", tetr->coord[1][0]);
-	printf("all result: %d\n", tetr->coord[1][1]);
-	printf("all result: %d\n", tetr->next->coord[0][0]);
-	printf("all result: %d\n", tetr->next->coord[0][1]);
-	printf("all result: %d\n", tetr->next->next->coord[0][0]);
-	printf("all result: %d\n", tetr->next->next->coord[0][1]);
-	system("leaks test");
+	
+	int i = 0;
+
+	while (i < 4)
+	{
+		printf("all result Y: %d\t\t", tetr->coord[i][0]);
+		printf("all result X: %d\n", tetr->coord[i][1]);
+		i++;
+	}
+	printf("\n");
+	algor(tetr);
+	i = 0;
+	while (i < 4)
+	{
+		printf("all result Y: %d\t\t", tetr->coord[i][0]);
+		printf("all result X: %d\n", tetr->coord[i][1]);
+		i++;
+	}
+
 	return (0);
 }

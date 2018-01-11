@@ -84,6 +84,8 @@ extern char		**check_valid(int fd, int *a)
 		{
 			if (sqr_valid(sqr_t))
 				return (sqr_t);
+			else
+				*a = 0;
 		}
 	}
 	return (sqr_t);

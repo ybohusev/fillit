@@ -81,3 +81,20 @@ extern	void	move_zero(int coord[4][2])
 		}
 	}
 }
+
+extern	void	move_zero_x(int coord[4][2])
+{
+	int	min;
+	int	i;
+
+	min = search_min(coord, 1);
+	while (coord[min][1] > 0)
+	{
+		i = 0;
+		while (i < 4)
+		{
+			coord[i][1]--;
+			i++;
+		}
+	}
+}
