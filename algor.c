@@ -12,17 +12,6 @@
 
 #include "fillit.h"
 
-static	void	choise_act(t_tetrimino *temp_tetr, int check)
-{
-	if (check == 1)
-		move_tetrimino_right(temp_tetr->coord);
-	else if (check == 2)
-	{
-		move_zero_x(temp_tetr->coord);
-		move_tetrimino_down(temp_tetr->coord);
-	}
-}
-
 static	int		check_same_index(int tetr[4][2], int checked_tetr[4][2])
 {
 	int	i;
@@ -34,7 +23,8 @@ static	int		check_same_index(int tetr[4][2], int checked_tetr[4][2])
 	{
 		while (i < 4)
 		{
-			if (tetr[i][0] == checked_tetr[j][0] && tetr[i][1] == checked_tetr[j][1])
+			if (tetr[i][0] == checked_tetr[j][0] &&
+				tetr[i][1] == checked_tetr[j][1])
 				return (0);
 			i++;
 		}
@@ -43,7 +33,8 @@ static	int		check_same_index(int tetr[4][2], int checked_tetr[4][2])
 	return (1);
 }
 
-static	int		is_empty_field(t_tetrimino *tetr, t_tetrimino *temp_tetr, int field)
+static	int		is_empty_field(t_tetrimino *tetr, t_tetrimino *temp_tetr,
+								int field)
 {
 	int	i;
 
@@ -70,28 +61,50 @@ static	int		is_empty_field(t_tetrimino *tetr, t_tetrimino *temp_tetr, int field)
 	return (0);
 }
 
-static	void	recursive_search(t_tetrimino *tetr, t_tetrimino *temp_tetr, int field, int flag)
+static	int		recursive_search(t_tetrimino *tetr, t_tetrimino *temp_tetr,
+									int field, int flag)
 {
 	int	check;
 
 	if (!flag)
 		move_zero(temp_tetr->coord);
-	while ((check = is_empty_field(tetr, temp_tetr, field)))
+	else
+		move_tetrimino_right(temp_tetr->coord);
+	while ((check = is_empty_field(tetr, temp_tetr, field)) != 0 && check != 3)
 	{
-		choise_act(temp_tetr, check);
+		if (check == 1)
+			move_tetrimino_right(temp_tetr->coord);
+		else if (check == 2)
+		{
+			move_zero_x(temp_tetr->coord);
+			move_tetrimino_down(temp_tetr->coord);
+		}
 	}
-	if (temp_tetr->next)
-		recursive_search(tetr, temp_tetr->next, field, 0);
+	if (tetr == temp_tetr && check == 3)
+		return (0);
+	if (temp_tetr->next && check == 0)
+		flag = recursive_search(tetr, temp_tetr->next, field, 0);
+	if (flag == 1 && check != 3)
+		flag = recursive_search(tetr, temp_tetr, field, 1);
+	return (1);
 }
 
 extern	void	algor(t_tetrimino *tetr)
 {
-	int	field;
-	
-	field = 0;
+	int			field;
+	int			i;
 	t_tetrimino *temp_tetr;
 
+	i = 0;
+	field = 0;
 	temp_tetr = tetr;
-	/*search smallest field*/
-	recursive_search(tetr, temp_tetr, field, 0);
+	field = g_elems * 4;
+	while (!(ft_sqrt(field)))
+		field++;
+	while (i == 0)
+	{
+		i = recursive_search(tetr, temp_tetr, field, 0);
+		if (i == 0)
+			field += 1;
+	}
 }
