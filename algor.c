@@ -66,27 +66,30 @@ static	int		recursive_search(t_tetrimino *tetr, t_tetrimino *temp_tetr,
 {
 	int	check;
 
-	if (flag == 0)
-		move_zero(temp_tetr->coord);
-	else
-		move_tetrimino_right(temp_tetr->coord);
-	while ((check = is_empty_field(tetr, temp_tetr, field)) != 0 && check != 3)
+	while (temp_tetr)
 	{
-		if (check == 1)
+		if (flag == 0)
+			move_zero(temp_tetr->coord);
+		else
 			move_tetrimino_right(temp_tetr->coord);
-		else if (check == 2)
+		while ((check = is_empty_field(tetr, temp_tetr, field)) != 0 && check != 3)
 		{
-			move_zero_x(temp_tetr->coord);
-			move_tetrimino_down(temp_tetr->coord);
+			if (check == 1)
+				move_tetrimino_right(temp_tetr->coord);
+			else if (check == 2)
+			{
+				move_zero_x(temp_tetr->coord);
+				move_tetrimino_down(temp_tetr->coord);
+			}
 		}
+		if (check == 0 && !(flag = 0))
+			temp_tetr = temp_tetr->next;
+		if (check == 3 && temp_tetr != tetr && (flag = 1))
+			temp_tetr = temp_tetr->prev;
+		if (check == 3 && temp_tetr == tetr)
+			return (0);
 	}
-	if (tetr == temp_tetr && check == 3)
-		return (0);
-	if (temp_tetr->next && check == 0)
-		recursive_search(tetr, temp_tetr->next, field, 0);
-	if (check == 3 && !(g_wtf = 0))
-		recursive_search(tetr, temp_tetr->prev, field, 1);
-	return (g_wtf);
+	return (1);
 }
 
 extern	int		algor(t_tetrimino *tetr)
