@@ -28,7 +28,6 @@ typedef	struct			s_tetrimino
 }						t_tetrimino;
 
 int						g_elems;
-int						g_wtf;
 
 void					move_zero(int coord[4][2]);
 void					move_zero_x(int coord[4][2]);

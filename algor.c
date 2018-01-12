@@ -65,7 +65,7 @@ static	int		recursive_search(t_tetrimino *tetr, t_tetrimino *temp_tetr,
 									int field, int flag)
 {
 	int	check;
-
+	
 	while (temp_tetr)
 	{
 		if (flag == 0)
@@ -100,12 +100,12 @@ extern	int		algor(t_tetrimino *tetr)
 
 	i = 0;
 	temp_tetr = tetr;
+	printf("g_elems %d\n", g_elems);
 	g_elems = g_elems * 4;
 	while (!(field = ft_sqrt(g_elems)))
 		g_elems++;
 	while (i == 0)
 	{
-		g_wtf = 1;
 		i = recursive_search(tetr, temp_tetr, field, 0);
 		if (i == 0)
 			field++;
