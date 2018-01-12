@@ -24,9 +24,11 @@ typedef	struct			s_tetrimino
 {
 	int					coord[4][2];
 	struct s_tetrimino	*next;
+	struct s_tetrimino	*prev;
 }						t_tetrimino;
 
 int						g_elems;
+int						g_wtf;
 
 void					move_zero(int coord[4][2]);
 void					move_zero_x(int coord[4][2]);
@@ -38,6 +40,7 @@ t_tetrimino				*write_data(int fd);
 t_tetrimino				*fillit_lstnew(int **new_tetr);
 void					fillit_lstadd(t_tetrimino *list_elem, int **new_tetr);
 int						**fillit_memalloc(int size_x, int size_y);
-void					algor(t_tetrimino *tetr);
+int						algor(t_tetrimino *tetr);
+void					display_data(t_tetrimino *tetr, int field);
 
 #endif

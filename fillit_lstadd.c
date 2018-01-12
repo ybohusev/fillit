@@ -35,5 +35,6 @@ void	fillit_lstadd(t_tetrimino *list_elem, int **new_tetr)
 		}
 		i++;
 	}
+	current->next->prev = current;
 	current->next->next = NULL;
 }

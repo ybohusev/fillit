@@ -38,5 +38,6 @@ t_tetrimino		*fillit_lstnew(int **new_tetr)
 		}
 	}
 	new->next = NULL;
+	new->prev = NULL;
 	return (new);
 }
