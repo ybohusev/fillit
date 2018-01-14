@@ -88,7 +88,6 @@ extern	int		algor(t_tetrimino *tetr)
 
 	i = 0;
 	temp_tetr = tetr;
-	printf("elems %d\n", g_elems);
 	g_elems = g_elems * 4;
 	while (!(field = ft_sqrt(g_elems)))
 		g_elems++;
