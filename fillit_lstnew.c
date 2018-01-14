@@ -18,9 +18,8 @@ t_tetrimino		*fillit_lstnew(int **new_tetr)
 	int			i;
 	int			j;
 
-	new = malloc(sizeof(t_tetrimino));
 	i = 0;
-	if (new == NULL)
+	if ((new = malloc(sizeof(t_tetrimino))) == NULL)
 		return (NULL);
 	if (new_tetr == NULL)
 		return (NULL);

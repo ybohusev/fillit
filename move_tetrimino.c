@@ -34,34 +34,11 @@ extern	void	move_tetrimino_down(int coord[4][2])
 	}
 }
 
-static	int		search_min(int p[4][2], int c)
+extern	void	move_zero(int coord[4][2], int min_x, int min_y)
 {
 	int	i;
-	int	min;
-	int	min_coord;
 
-	min = p[0][c];
-	min_coord = 0;
-	i = 0;
-	while (i < 4)
-	{
-		if (min > p[i][c])
-		{
-			min_coord = i;
-			min = p[i][c];
-		}
-		i++;
-	}
-	return (min_coord);
-}
-
-extern	void	move_zero(int coord[4][2])
-{
-	int	min;
-	int	i;
-
-	min = search_min(coord, 0);
-	while (coord[min][0] > 0)
+	while (coord[min_y][0] > 0)
 	{
 		i = 0;
 		while (i < 4)
@@ -70,8 +47,7 @@ extern	void	move_zero(int coord[4][2])
 			i++;
 		}
 	}
-	min = search_min(coord, 1);
-	while (coord[min][1] > 0)
+	while (coord[min_x][1] > 0)
 	{
 		i = 0;
 		while (i < 4)
@@ -82,13 +58,11 @@ extern	void	move_zero(int coord[4][2])
 	}
 }
 
-extern	void	move_zero_x(int coord[4][2])
+extern	void	move_zero_x(int coord[4][2], int min_x)
 {
-	int	min;
 	int	i;
 
-	min = search_min(coord, 1);
-	while (coord[min][1] > 0)
+	while (coord[min_x][1] > 0)
 	{
 		i = 0;
 		while (i < 4)

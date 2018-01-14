@@ -36,22 +36,10 @@ static	int		check_same_index(int tetr[4][2], int checked_tetr[4][2])
 static	int		is_empty_field(t_tetrimino *tetr, t_tetrimino *temp_tetr,
 								int field)
 {
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		if (temp_tetr->coord[i][0] >= field)
-			return (3);
-		i++;
-	}
-	i = 0;
-	while (i < 4)
-	{
-		if (temp_tetr->coord[i][1] >= field)
-			return (2);
-		i++;
-	}
+	if (temp_tetr->coord[temp_tetr->max_y][0] >= field)
+		return (3);
+	if (temp_tetr->coord[temp_tetr->max_x][1] >= field)
+		return (2);
 	while (tetr != temp_tetr)
 	{
 		if (!check_same_index(tetr->coord, temp_tetr->coord))
@@ -65,20 +53,20 @@ static	int		recursive_search(t_tetrimino *tetr, t_tetrimino *temp_tetr,
 									int field, int flag)
 {
 	int	check;
-	
+
 	while (temp_tetr)
 	{
 		if (flag == 0)
-			move_zero(temp_tetr->coord);
+			move_zero(temp_tetr->coord, temp_tetr->min_x, temp_tetr->min_y);
 		else
 			move_tetrimino_right(temp_tetr->coord);
-		while ((check = is_empty_field(tetr, temp_tetr, field)) != 0 && check != 3)
+		while ((check = is_empty_field(tetr, temp_tetr, field)) && check != 3)
 		{
 			if (check == 1)
 				move_tetrimino_right(temp_tetr->coord);
 			else if (check == 2)
 			{
-				move_zero_x(temp_tetr->coord);
+				move_zero_x(temp_tetr->coord, temp_tetr->min_x);
 				move_tetrimino_down(temp_tetr->coord);
 			}
 		}
@@ -100,6 +88,7 @@ extern	int		algor(t_tetrimino *tetr)
 
 	i = 0;
 	temp_tetr = tetr;
+	printf("elems %d\n", g_elems);
 	g_elems = g_elems * 4;
 	while (!(field = ft_sqrt(g_elems)))
 		g_elems++;

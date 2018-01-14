@@ -58,6 +58,7 @@ extern	t_tetrimino		*write_data(int fd)
 	t_tetrimino *tetr;
 	char		**elem;
 	int			**data;
+
 	tetr = NULL;
 	i = 1;
 	data = fillit_memalloc(4, 2);
@@ -72,6 +73,7 @@ extern	t_tetrimino		*write_data(int fd)
 		i++;
 	}
 	delete_alloc((void**)data);
+	extr(tetr);
 	if ((!(i) || i > 27) && (write(1, "error\n", 7)))
 		exit(0);
 	g_elems = i - 1;

@@ -24,6 +24,7 @@ int		main(int argc, char *argv[])
 	}
 	tetr = read_data(argv[1]);
 	field = algor(tetr);
+	printf("field %d\n", field);
 	display_data(tetr, field);
 	return (0);
 }
