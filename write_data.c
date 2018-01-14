@@ -17,7 +17,7 @@ static	void			delete_alloc(void **data)
 	int	j;
 
 	j = 0;
-	while (j < 4)
+	while (data[j])
 	{
 		free(data[j]);
 		data[j] = NULL;
@@ -58,7 +58,6 @@ extern	t_tetrimino		*write_data(int fd)
 	t_tetrimino *tetr;
 	char		**elem;
 	int			**data;
-
 	tetr = NULL;
 	i = 1;
 	data = fillit_memalloc(4, 2);

@@ -18,8 +18,9 @@ int		**fillit_memalloc(int size_x, int size_y)
 	int		i;
 
 	i = 0;
-	if ((freshmem = (int**)malloc(sizeof(int*) * size_x)))
+	if ((freshmem = (int**)malloc((sizeof(int*) * size_x) + 1)))
 	{
+		freshmem[size_x] = NULL;
 		while (i < size_x)
 		{
 			if ((freshmem[i] = (int*)malloc(sizeof(int) * size_y)))
