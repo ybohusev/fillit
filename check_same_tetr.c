@@ -12,7 +12,8 @@
 
 #include "fillit.h"
 
-static t_tetrimino	*move_list(int coord1[4][2], int coord2[4][2], t_tetrimino *temp_tetr)
+static t_tetrimino	*move_list(int coord1[4][2], int coord2[4][2],
+		t_tetrimino *temp_tetr)
 {
 	int i;
 	int count_same;
@@ -54,6 +55,7 @@ t_tetrimino			*check_same_tetr(t_tetrimino *temp_tetr)
 		i++;
 	}
 	move_zero(coord, temp_tetr->min_x, temp_tetr->min_y);
-	move_zero(coord_prev, temp_tetr->prev->min_x, temp_tetr->prev->min_y);
-	return move_list(coord, coord_prev, temp_tetr);
+	move_zero(coord_prev, temp_tetr->prev->min_x,
+			temp_tetr->prev->min_y);
+	return (move_list(coord, coord_prev, temp_tetr));
 }

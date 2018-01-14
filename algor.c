@@ -12,6 +12,17 @@
 
 #include "fillit.h"
 
+static	void	choice_act(t_tetrimino *temp_tetr, int check)
+{
+	if (check == 1)
+		move_tetrimino_right(temp_tetr->coord);
+	else if (check == 2)
+	{
+		move_zero_x(temp_tetr->coord, temp_tetr->min_x);
+		move_tetrimino_down(temp_tetr->coord);
+	}
+}
+
 static	int		check_same_index(int tetr[4][2], int checked_tetr[4][2])
 {
 	int	i;
@@ -62,13 +73,7 @@ static	int		recursive_search(t_tetrimino *tetr, t_tetrimino *temp_tetr,
 			move_tetrimino_right(temp_tetr->coord);
 		while ((check = is_empty_field(tetr, temp_tetr, field)) && check != 3)
 		{
-			if (check == 1)
-				move_tetrimino_right(temp_tetr->coord);
-			else if (check == 2)
-			{
-				move_zero_x(temp_tetr->coord, temp_tetr->min_x);
-				move_tetrimino_down(temp_tetr->coord);
-			}
+			choice_act(temp_tetr, check);
 		}
 		if (check == 0 && !(flag = 0))
 			temp_tetr = temp_tetr->next;
