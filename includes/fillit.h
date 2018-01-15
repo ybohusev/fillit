@@ -14,9 +14,8 @@
 # define FILLIT_H
 
 # include <unistd.h>
-# include "libft.h"
+# include "./libft/libft.h"
 # include <fcntl.h>
-# include <stdio.h>
 
 typedef	struct			s_tetrimino
 {
@@ -43,7 +42,6 @@ void					fillit_lstadd(t_tetrimino *list_elem, int **new_tetr);
 int						**fillit_memalloc(int size_x, int size_y);
 int						algor(t_tetrimino *tetr);
 void					display_data(t_tetrimino *tetr, int field);
-t_tetrimino				*check_same_tetr(t_tetrimino *temp_tetr);
 void					extr(t_tetrimino *tetr);
 
 #endif

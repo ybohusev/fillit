@@ -72,13 +72,14 @@ static	int		recursive_search(t_tetrimino *tetr, t_tetrimino *temp_tetr,
 		else
 			move_tetrimino_right(temp_tetr->coord);
 		while ((check = is_empty_field(tetr, temp_tetr, field)) && check != 3)
-		{
 			choice_act(temp_tetr, check);
-		}
 		if (check == 0 && !(flag = 0))
 			temp_tetr = temp_tetr->next;
 		if (check == 3 && temp_tetr != tetr && (flag = 1))
+		{
+			check = 0;
 			temp_tetr = temp_tetr->prev;
+		}
 		if (check == 3 && temp_tetr == tetr)
 			return (0);
 	}
