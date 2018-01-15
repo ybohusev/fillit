@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include <stdio.h>
 
 static int		touch_check(char **s, int x, int y)
 {
@@ -65,6 +66,25 @@ static int		sqr_valid(char **sqr)
 	return (1);
 }
 
+static int		check_buf(void)
+{
+	if (g_buf[20] == '\n' || !g_buf[0])
+		return (0);
+	return (1);
+}
+
+static void		copy_buf(char buf[21])
+{
+	int	i;
+
+	i = 0;
+	while (i < 21)
+	{
+		g_buf[i] = buf[i];
+		i++;
+	}
+}
+
 extern char		**check_valid(int fd, int *a)
 {
 	char	buf[21];
@@ -74,6 +94,7 @@ extern char		**check_valid(int fd, int *a)
 	sqr_t = NULL;
 	if ((i = read(fd, buf, 21)))
 	{
+		copy_buf(buf);
 		if (buf[19] != '\n' || buf[0] == '\n' || i < 20)
 		{
 			*a = 0;
@@ -88,5 +109,7 @@ extern char		**check_valid(int fd, int *a)
 				*a = 0;
 		}
 	}
+	if (!check_buf())
+		*a = 0;
 	return (sqr_t);
 }

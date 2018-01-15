@@ -20,10 +20,8 @@ CC_FLAGS = -Wall -Werror -Wextra
 FILLIT_PATH = ./srcs/
 LIBFT_PATH = ./includes/libft/
 INC_PATH = ./includes/
-OBJ_PATH = ./obj/
 
 SRC = $(addprefix $(FILLIT_PATH),$(SRC_NAME))
-OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
 INC = $(addprefix -I,$(INC_PATH))
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -45,17 +43,16 @@ SRC_NAME += write_data.c
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ_NAME)
 	make -C $(LIBFT_PATH)
-	$(CC) $(CC_FLAGS) -o $(NAME) $(OBJ) $(LIBFT_PATH)/libft.a
+	$(CC) $(CC_FLAGS) -o $(NAME) $(OBJ_NAME) $(LIBFT_PATH)/libft.a
 
-$(OBJ_PATH)%.o: $(FILLIT_PATH)%.c
-	mkdir -p $(OBJ_PATH)
-	$(CC) $(CC_FLAGS) $(INC) -o $@ -c $<
+%.o: $(FILLIT_PATH)%.c
+	$(CC) $(CC_FLAGS) $(INC) -c $<
 
 clean:
 	make -C $(LIBFT_PATH) clean
-	rm -R $(OBJ_PATH)
+	rm -f $(OBJ_NAME)
 
 fclean: clean
 	make -C $(LIBFT_PATH) fclean
