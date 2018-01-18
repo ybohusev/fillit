@@ -73,7 +73,7 @@ extern	t_tetrimino		*write_data(int fd)
 		i++;
 	}
 	delete_alloc((void**)data);
-	if ((!(i) || i > 27) && (write(1, "error\n", 7)))
+	if ((!(i) || i > 27) && (write(1, "error\n", 6)))
 		exit(0);
 	g_elems = i - 1;
 	extr(tetr);
